@@ -6,11 +6,13 @@ import {
   Text,
   StyleSheet,
   TouchableWithoutFeedback,
+  SafeAreaView,
 } from "react-native";
 import { ScreenSize } from "../constants/Constant";
 import { NavigationProps } from "../utils/Navigation";
 import { SharedElement } from "react-navigation-shared-element";
 import { Spacing } from "../constants/Spacing";
+import Header from "../components/Header";
 
 const Images = [
   {
@@ -18,12 +20,16 @@ const Images = [
     id: 1,
   },
   {
-    src: require("../../assets/img/summer1.jpg"),
+    src: require("../../assets/img/summer2.jpg"),
     id: 2,
   },
   {
-    src: require("../../assets/img/summer1.jpg"),
+    src: require("../../assets/img/summer3.jpg"),
     id: 3,
+  },
+  {
+    src: require("../../assets/img/summer4.jpg"),
+    id: 4,
   },
 ];
 
@@ -33,7 +39,7 @@ export interface Post {
 }
 
 export default function HomeScreen({ navigation }: NavigationProps) {
-  const renderItem: ListRenderItem<Post> = ({ item }) => (
+  const renderItem: ListRenderItem<Post> = ({ item, index }) => (
     <TouchableWithoutFeedback
       onPress={() => navigation.navigate("Detail", { item })}
     >
@@ -56,31 +62,39 @@ export default function HomeScreen({ navigation }: NavigationProps) {
               borderTopLeftRadius: 16,
               borderTopRightRadius: 16,
             }}
+            resizeMode="cover"
           />
         </SharedElement>
-        <SharedElement id={`item.${item.id}.title`}>
-          <View style={{ margin: Spacing.medium }}>
-            <Text style={{ color: "gray", fontWeight: "bold" }}>
-              HÃY CÙNG CHƠI
-            </Text>
-            <Text style={{ fontSize: 30, fontWeight: "bold" }}>
-              20 Game Mới Cập Bến Apple Arcade
-            </Text>
-          </View>
-        </SharedElement>
+        <View style={{ margin: Spacing.medium }}>
+          <SharedElement id={`item.${item.id}.title`}>
+            <View>
+              <Text style={{ color: "gray", fontWeight: "bold" }}>
+                HÃY CÙNG CHƠI
+              </Text>
+              <Text style={{ fontSize: 30, fontWeight: "bold" }}>
+                20 Game Mới Cập Bến Apple Arcade
+              </Text>
+            </View>
+          </SharedElement>
+          <Text style={{ color: "#a8a8a8", fontWeight: "bold" }}>
+            Chơi cùng nhân vật Disney và hơn thế trong các game yêu thích.
+          </Text>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlashList
         keyExtractor={(item, index) => String(index)}
         renderItem={renderItem}
         data={Images}
         estimatedItemSize={313}
+        contentContainerStyle={{ paddingTop: 44 }}
+        ListHeaderComponent={Header}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -89,8 +103,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     // alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 44,
   },
   card: {
     shadowColor: "#000",
