@@ -11,6 +11,8 @@ export default function App() {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
+          presentation: "transparentModal",
+          gestureDirection: "vertical",
         }}
       >
         <Stack.Screen name="Home" component={HomeScreen} />

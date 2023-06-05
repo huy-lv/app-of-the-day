@@ -2,7 +2,6 @@ import { FlashList, ListRenderItem } from "@shopify/flash-list";
 import {
   ImageSourcePropType,
   View,
-  Image,
   Text,
   StyleSheet,
   TouchableWithoutFeedback,
@@ -13,6 +12,7 @@ import { NavigationProps } from "../utils/Navigation";
 import { SharedElement } from "react-navigation-shared-element";
 import { Spacing } from "../constants/Spacing";
 import Header from "../components/Header";
+import { Image } from "expo-image";
 
 const Images = [
   {
@@ -62,7 +62,8 @@ export default function HomeScreen({ navigation }: NavigationProps) {
               borderTopLeftRadius: 16,
               borderTopRightRadius: 16,
             }}
-            resizeMode="cover"
+            contentFit="cover"
+            cachePolicy="memory-disk"
           />
         </SharedElement>
         <View style={{ margin: Spacing.medium }}>

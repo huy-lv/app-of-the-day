@@ -1,12 +1,10 @@
 import {
   ImageSourcePropType,
   View,
-  Image,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  SafeAreaView,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { CommonStyle } from "../utils/CommonStyle";
@@ -15,6 +13,7 @@ import { ScreenSize } from "../constants/Constant";
 import { SharedElement } from "react-navigation-shared-element";
 import { Spacing } from "../constants/Spacing";
 import Animated, { FadeIn } from "react-native-reanimated";
+import { Image } from "expo-image";
 
 interface Game {
   icon: ImageSourcePropType;
@@ -81,7 +80,8 @@ export default function DetailScreen({ navigation, route }: NavigationProps) {
           <Image
             source={item.src}
             style={{ width: ScreenSize.width, height: ScreenSize.width }}
-            resizeMode="cover"
+            contentFit="cover"
+            cachePolicy="memory-disk"
           />
         </SharedElement>
         <SharedElement id={`item.${item.id}.title`}>
