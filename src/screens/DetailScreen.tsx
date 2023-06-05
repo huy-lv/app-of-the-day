@@ -11,8 +11,9 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import { CommonStyle } from "../utils/CommonStyle";
 import { NavigationProps } from "../utils/Navigation";
-import { ScreenSize } from "../Constant";
+import { ScreenSize } from "../constants/Constant";
 import { SharedElement } from "react-navigation-shared-element";
+import { Spacing } from "../constants/Spacing";
 
 const Games = Array(10).fill({
   icon: require("../../assets/img/summer1.jpg"),
@@ -32,7 +33,12 @@ export default function DetailScreen({ navigation, route }: NavigationProps) {
           />
         </SharedElement>
         <SharedElement id={`item.${item.id}.title`}>
-          <View style={{ padding: 24 }}>
+          <View
+            style={{
+              margin: Spacing.medium,
+              marginRight: 3 * Spacing.medium,
+            }}
+          >
             <Text style={{ color: "gray", fontWeight: "bold" }}>
               HÃY CÙNG CHƠI
             </Text>

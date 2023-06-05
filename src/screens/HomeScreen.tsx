@@ -7,9 +7,10 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
 } from "react-native";
-import { ScreenSize } from "../Constant";
+import { ScreenSize } from "../constants/Constant";
 import { NavigationProps } from "../utils/Navigation";
 import { SharedElement } from "react-navigation-shared-element";
+import { Spacing } from "../constants/Spacing";
 
 const Images = [
   {
@@ -40,7 +41,7 @@ export default function HomeScreen({ navigation }: NavigationProps) {
         style={[
           styles.card,
           {
-            margin: ScreenSize.width * 0.05,
+            margin: Spacing.medium,
             backgroundColor: "white",
             borderRadius: 16,
           },
@@ -50,15 +51,15 @@ export default function HomeScreen({ navigation }: NavigationProps) {
           <Image
             source={item.src}
             style={{
-              width: ScreenSize.width * 0.9,
-              height: ScreenSize.width * 0.9,
+              width: ScreenSize.width - 2 * Spacing.medium,
+              height: ScreenSize.width - 2 * Spacing.medium,
               borderTopLeftRadius: 16,
               borderTopRightRadius: 16,
             }}
           />
         </SharedElement>
         <SharedElement id={`item.${item.id}.title`}>
-          <View style={{ padding: 24 }}>
+          <View style={{ margin: Spacing.medium }}>
             <Text style={{ color: "gray", fontWeight: "bold" }}>
               HÃY CÙNG CHƠI
             </Text>
