@@ -1,5 +1,7 @@
 # Apple Appstore clone
 
 Feel free to use this code, don't forget to give me a star if this repo help you!
+## Demo 
+### iOS and Android
+https://github.com/huy-lv/app-of-the-day/assets/7688070/4a2c71e7-b453-409d-b708-5ef1231e5773
 
-<iframe src="https://onedrive.live.com/embed?cid=B921F09FD00EA476&resid=b921f09fd00ea476%21373800&authkey=AJDcij5Ip-j0hRE" width="117" height="320" frameborder="0" scrolling="no" allowfullscreen></iframe>
