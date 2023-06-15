@@ -14,6 +14,8 @@ import { SharedElement } from "react-navigation-shared-element";
 import { Spacing } from "../constants/Spacing";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { Image } from "expo-image";
+import { useEffect, useState } from "react";
+import { FlashList } from "@shopify/flash-list";
 
 interface Game {
   icon: ImageSourcePropType;
@@ -23,7 +25,7 @@ interface Game {
 }
 
 const Games = Array(10).fill({
-  icon: require("../../assets/img/summer1.jpg"),
+  icon: require("../../assets/img/summer2.jpg"),
   title: "Apple Arcade",
   name: "TMNT Splintered Fate",
   cat: "Hành động",
@@ -32,11 +34,11 @@ const Games = Array(10).fill({
 export default function DetailScreen({ navigation, route }: NavigationProps) {
   const item = route.params.item;
 
-  const renderItem = (item: Game, index: number) => {
+  const renderItem = ({ item, index }: { item: Game; index: number }) => {
     return (
       <Animated.View
         key={index}
-        entering={FadeIn.delay(index * 100 + 400)}
+        // entering={FadeIn.delay(index * 100 + 400)}
         style={{
           flexDirection: "row",
           paddingHorizontal: Spacing.medium,
@@ -73,34 +75,37 @@ export default function DetailScreen({ navigation, route }: NavigationProps) {
     );
   };
 
+  const renderHeader = () => (
+    <>
+      <Animated.Image
+        source={item.src}
+        style={{ width: ScreenSize.width, height: ScreenSize.width }}
+        sharedTransitionTag={`item.${item.id}.image`}
+      />
+      <Animated.View
+        style={{
+          margin: Spacing.medium,
+          marginRight: 3 * Spacing.medium,
+        }}
+        sharedTransitionTag={`item.${item.id}.title`}
+      >
+        <Text style={{ color: "gray", fontWeight: "bold" }}>HÃY CÙNG CHƠI</Text>
+        <Text style={{ fontSize: 30, fontWeight: "bold" }}>
+          20 Game Mới Cập Bến Apple Arcade
+        </Text>
+      </Animated.View>
+    </>
+  );
+
   return (
-    <View style={CommonStyle.flex1}>
-      <ScrollView style={[CommonStyle.flex1, { backgroundColor: "white" }]}>
-        <SharedElement id={`item.${item.id}.photo`}>
-          <Image
-            source={item.src}
-            style={{ width: ScreenSize.width, height: ScreenSize.width }}
-            contentFit="cover"
-            cachePolicy="memory-disk"
-          />
-        </SharedElement>
-        <SharedElement id={`item.${item.id}.title`}>
-          <View
-            style={{
-              margin: Spacing.medium,
-              marginRight: 3 * Spacing.medium,
-            }}
-          >
-            <Text style={{ color: "gray", fontWeight: "bold" }}>
-              HÃY CÙNG CHƠI
-            </Text>
-            <Text style={{ fontSize: 30, fontWeight: "bold" }}>
-              20 Game Mới Cập Bến Apple Arcade
-            </Text>
-          </View>
-        </SharedElement>
-        {Games.map(renderItem)}
-      </ScrollView>
+    <View style={[CommonStyle.flex1, { backgroundColor: "#fff" }]}>
+      <FlashList
+        keyExtractor={(item, index) => String(index)}
+        data={Games}
+        renderItem={renderItem}
+        ListHeaderComponent={renderHeader}
+        estimatedItemSize={77}
+      />
       <TouchableOpacity
         style={{ position: "absolute", top: 56, right: 16 }}
         onPress={() => navigation.goBack()}

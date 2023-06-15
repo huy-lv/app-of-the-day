@@ -9,29 +9,16 @@ import {
 } from "react-native";
 import { ScreenSize } from "../constants/Constant";
 import { NavigationProps } from "../utils/Navigation";
-import { SharedElement } from "react-navigation-shared-element";
 import { Spacing } from "../constants/Spacing";
 import Header from "../components/Header";
-import { Image } from "expo-image";
+import Animated from "react-native-reanimated";
 
-const Images = [
-  {
-    src: require("../../assets/img/summer1.jpg"),
-    id: 1,
-  },
-  {
+const Images = Array(20)
+  .fill(1)
+  .map((i, index) => ({
     src: require("../../assets/img/summer2.jpg"),
-    id: 2,
-  },
-  {
-    src: require("../../assets/img/summer3.jpg"),
-    id: 3,
-  },
-  {
-    src: require("../../assets/img/summer4.jpg"),
-    id: 4,
-  },
-];
+    id: index,
+  }));
 
 export interface Post {
   id: number;
@@ -53,30 +40,25 @@ export default function HomeScreen({ navigation }: NavigationProps) {
           },
         ]}
       >
-        <SharedElement id={`item.${item.id}.photo`}>
-          <Image
-            source={item.src}
-            style={{
-              width: ScreenSize.width - 2 * Spacing.medium,
-              height: ScreenSize.width - 2 * Spacing.medium,
-              borderTopLeftRadius: 16,
-              borderTopRightRadius: 16,
-            }}
-            contentFit="cover"
-            cachePolicy="memory-disk"
-          />
-        </SharedElement>
+        <Animated.Image
+          source={item.src}
+          style={{
+            width: ScreenSize.width - 2 * Spacing.medium,
+            height: ((ScreenSize.width - 2 * Spacing.medium) * 3) / 4,
+            borderTopLeftRadius: 16,
+            borderTopRightRadius: 16,
+          }}
+          sharedTransitionTag={`item.${item.id}.image`}
+        />
         <View style={{ margin: Spacing.medium }}>
-          <SharedElement id={`item.${item.id}.title`}>
-            <View>
-              <Text style={{ color: "gray", fontWeight: "bold" }}>
-                HÃY CÙNG CHƠI
-              </Text>
-              <Text style={{ fontSize: 30, fontWeight: "bold" }}>
-                20 Game Mới Cập Bến Apple Arcade
-              </Text>
-            </View>
-          </SharedElement>
+          <Animated.View sharedTransitionTag={`item.${item.id}.title`}>
+            <Text style={{ color: "gray", fontWeight: "bold" }}>
+              HÃY CÙNG CHƠI
+            </Text>
+            <Text style={{ fontSize: 30, fontWeight: "bold" }}>
+              20 Game Mới Cập Bến Apple Arcade
+            </Text>
+          </Animated.View>
           <Text style={{ color: "#a8a8a8", fontWeight: "bold" }}>
             Chơi cùng nhân vật Disney và hơn thế trong các game yêu thích.
           </Text>
